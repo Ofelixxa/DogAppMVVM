@@ -14,16 +14,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun DogScreen(vm: DogViewModel = viewModel()) {
     Column(
-        modifier = Modifier
+        Modifier
             .fillMaxSize()
             .safeDrawingPadding()
             .padding(16.dp)
     ) {
-        Text("Dog App")
-        Text("Imagen del perro (próximamente)")
-        Text("Perro: ${vm.perro}")
-        Button(onClick = { vm.cambiarPerro() }) {
-            Text("OTRO PERRO")
+        Text("Aplicación Dog")
+        Text("URL: ${vm.urlPerro}")
+        Button(onClick = { vm.solicitarPerro() }) {
+            Text("Otro perro")
         }
     }
 }

@@ -4,17 +4,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
 class DogViewModel : ViewModel() {
     private val repository = DogRepository()
-    private val perros = repository.obtenerPerros()
-    private var indice = 0
 
-    var perro by mutableStateOf(perros[indice])
+    var urlPerro by mutableStateOf("Sin consulta todavía")
         private set
 
-    fun cambiarPerro() {
-        indice = (indice + 1) % perros.size
-        perro = perros[indice]
+    fun solicitarPerro() {
+        viewModelScope.launch {
+            try {
+                urlPerro = repository.obtenerPerroRemoto().url
+            } catch (e: Exception) {
+                urlPerro = "Error al consultar el servicio"
+            }
+        }
     }
 }
