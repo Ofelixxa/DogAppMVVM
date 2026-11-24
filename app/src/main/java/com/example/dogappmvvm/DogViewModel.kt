@@ -6,7 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 class DogViewModel : ViewModel() {
-    private val perros = listOf("Luna", "Max", "Nala", "Rocky")
+    private val repository = DogRepository()
+    private val perros = repository.obtenerPerros()
     private var indice = 0
 
     var perro by mutableStateOf(perros[indice])
